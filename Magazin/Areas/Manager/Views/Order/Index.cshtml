@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Magazin.Areas.Manager.Models.OrderListModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Список заказов</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  code=item.OrderNumber  }) |
+                @Html.ActionLink("Details", "Details", new {  code=item.OrderNumber  }) |
+            </td>
+        </tr>
+    }
+
+</table>

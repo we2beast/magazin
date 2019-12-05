@@ -1,0 +1,104 @@
+﻿@model Magazin.Models.MyOrderViewModel
+
+@{
+    ViewBag.Title = "DetailsMyOrder";
+}
+
+
+<h2>Подробости заказа №@Model.OrderNumber</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Code),
+            @Html.DisplayFor(model => model.Customer.Name),
+            @Html.DisplayFor(model => model.Customer.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShipmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShipmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Код
+            </th>
+            <th>
+                Товар
+            </th>
+            <th>
+                Количество
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Сумма
+            </th>
+        </tr>
+
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Summ)
+                </td>
+            </tr>
+        }
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-right">Итого:</td>
+                <td class="text-left" style="font-weight: bold">
+                    @Html.DisplayFor(model => model.Total) руб.
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "MyOrders") |
+    @if (Model.Status.Name == "Новый")
+    {
+        @Html.ActionLink("Cancel Order", "CancalOrder", new { code = Model.OrderNumber })
+    }
+</p>
+

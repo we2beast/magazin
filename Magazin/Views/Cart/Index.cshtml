@@ -1,0 +1,76 @@
+﻿@model Magazin.Models.CartViewModel
+@using System.Linq;
+@{
+    ViewBag.Title = "Ваша корзина";
+}
+
+<h2>Ваша корзина</h2>
+@if ((Model.Cart.Lines).Count() == 0)
+{
+    <h4> Пуста </h4>
+    <p> @Html.ActionLink("К списку товаров", "Index", "Item")</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Товар
+                </th>
+                <th>
+                    Цена
+                </th>
+                <th>
+                    Кол-во
+                </th>
+                <th>
+                    Сумма
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Cart.Lines)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelLine => line.Item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelLine => line.Item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelLine => line.Item.Price)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelLine => line.Quantity, new { @type = "number", style = "width:50px" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelLine => line.Summ)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Удалить", "RemoveFromCart", new { id = line.Item.ItemId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-right">Итого:</td>
+                <td class="text-left" style="font-weight: bold">
+                    @Model.Cart.ComputeTotalValue().ToString("# руб")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
+        <a class="btn btn-success" href="@Url.Action("Create", "Order")">Оформить заказ</a>
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\Magazin.BusinessLayer.csproj" />
+    <ProjectReference Include="..\DataLayer\Magazin.DataLayer.csproj" />
+  </ItemGroup>
+
+</Project>
